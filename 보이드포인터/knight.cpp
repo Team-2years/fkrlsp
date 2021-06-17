@@ -129,7 +129,7 @@ void knight::leftFire(void* obj)
 {
 	knight* k = (knight*)obj;
 
-	k->setKnightDirection(KNIGHTDIRECTION_RIGHT_STOP);
+	k->setKnightDirection(KNIGHTDIRECTION_LEFT_STOP);
 	k->setKnightMotion(KEYANIMANAGER->findAnimation("knightLeftStop"));
 	k->getKnightMotion()->start();
 }

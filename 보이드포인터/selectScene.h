@@ -22,5 +22,7 @@ public:
 	static void cbSceneChange();
 	static void cbSceneChangeObj(void* obj);
 	static void cbSceneChangeObjConst(const void* obj);
+
+	void cbSceneChangeFunctional(const char* str);
 };
 

@@ -1,10 +1,16 @@
 #pragma once
 #include "gameNode.h"
+#include <functional>
 
 //함수포인터 형태를 가진 콜백함수 
 typedef void(*CALLBACK_FUNCTION)(void);
 typedef void(*CALLBACK_FUNCTION_PARAMETER)(void*);
 typedef void(*CALLBACK_FUNCTION_PARAMETER_CONST)(const void*);
+// functional을 이용한 방법
+typedef std::function<void(const char*)> CALLBACK_FUNCTIONAL;
+// 함수 포인터 방식에서는 typedef void(*CALLBACK_FUNCTIONAL)(const char*);
+
+
 //보이드 포인터
 //비어있는 곳을 가르킨다? -> 무엇이든 다 가르킬수있다
 //다만 내가 가르킨 것이 무엇인지 형을 지정해야 사용가능
@@ -43,9 +49,13 @@ private:
 	//콜백함수 typedef 건 애를 정의한 것
 	void*						_obj;
 	const void*					_constobj;
+	const char*					_functionalStr;
+
 	CALLBACK_FUNCTION			_callbackFunction;
 	CALLBACK_FUNCTION_PARAMETER _callbackFunctionParameter;
 	CALLBACK_FUNCTION_PARAMETER_CONST _callbackFunctionParameterConst;
+	CALLBACK_FUNCTIONAL _callbackFuntional;
+
 public:
 	button();
 	~button();
@@ -61,6 +71,11 @@ public:
 	HRESULT init(const char* imageName, int x, int y,
 		POINT btnDownFramePoint, POINT btnUpFramePoint,
 		CALLBACK_FUNCTION_PARAMETER_CONST cbFunction, const void* obj);
+
+	HRESULT init(const char* imageName, int x, int y,
+		POINT btnDownFramePoint, POINT btnUpFramePoint,
+		CALLBACK_FUNCTIONAL cbFunction, const char* _functionalStr);
+
 	void release();
 	void update();
 	void render();

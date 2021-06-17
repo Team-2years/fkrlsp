@@ -19,6 +19,7 @@ HRESULT button::init(const char * imageName, int x, int y, POINT btnDownFramePoi
 	_callbackFunctionParameterConst = NULL;
 	_constobj = NULL;
 	_direction = BUTTONDIRECTION_NULL;
+	_callbackFuntional = NULL;
 
 	_x = x;
 	_y = y;
@@ -43,6 +44,7 @@ HRESULT button::init(const char * imageName, int x, int y, POINT btnDownFramePoi
 	_callbackFunctionParameterConst = NULL;
 	_constobj = NULL;
 	_direction = BUTTONDIRECTION_NULL;
+	_callbackFuntional = NULL;
 
 	_x = x;
 	_y = y;
@@ -65,6 +67,7 @@ HRESULT button::init(const char * imageName, int x, int y, POINT btnDownFramePoi
 	_callbackFunctionParameter = NULL;
 	_callbackFunctionParameterConst = cbFunction;
 	_constobj = obj;
+	_callbackFuntional = NULL;
 
 	_direction = BUTTONDIRECTION_NULL;
 
@@ -80,6 +83,29 @@ HRESULT button::init(const char * imageName, int x, int y, POINT btnDownFramePoi
 	_rc = RectMakeCenter(x, y, _image->getFrameWidth(), _image->getFrameHeight());
 
 	return S_OK;
+}
+
+HRESULT button::init(const char * imageName, int x, int y, POINT btnDownFramePoint, POINT btnUpFramePoint, CALLBACK_FUNCTIONAL cbFunction, const char* functionalStr)
+{
+	_callbackFuntional = cbFunction;
+	_functionalStr = functionalStr;
+	_obj = NULL;
+	_callbackFunction = NULL;
+	_callbackFunctionParameter = NULL;
+	_callbackFunctionParameterConst = NULL;
+	_constobj = NULL;
+	_direction = BUTTONDIRECTION_NULL;
+
+	_x = x;
+	_y = y;
+
+	_btnUpFramePoint = btnUpFramePoint;
+	_btnDownFramePoint = btnDownFramePoint;
+
+	_imageName = imageName;
+	_image = IMAGEMANAGER->findImage(imageName);
+
+	_rc = RectMakeCenter(x, y, _image->getFrameWidth(), _image->getFrameHeight());
 
 	return S_OK;
 }
@@ -106,6 +132,10 @@ void button::update()
 			else if (_constobj != NULL) 
 			{
 				_callbackFunctionParameterConst(_constobj);
+			}
+			else if (_callbackFuntional != NULL) 
+			{
+				_callbackFuntional(_functionalStr);
 			}
 			else
 			{
